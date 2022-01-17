@@ -3,7 +3,6 @@ import { createTripInfoTemplate } from './view/trip-info.js';
 import { createTripCostTemplate } from './view/trip-cost.js';
 import { createFilterTemplate } from './view/filter.js';
 import { createTripBordTemplate } from './view/trip-bord.js';
-import { createNewPointTemplate } from './view/new-point.js';
 import { createEditPointTemplate } from './view/edit-point.js';
 import { createPointTemplate } from './view/point.js';
 import { generatePointData } from './mock/data.js';
@@ -34,9 +33,8 @@ render(tripInfoElement, createTripCostTemplate());
 
 const tripListElement = tripBordElement.querySelector('.trip-events__list');
 render(tripListElement, createEditPointTemplate());
-render(tripListElement, createNewPointTemplate());
 
-for(const point of pointsData ) {
+for(const point of pointsData) {
   render(tripListElement, createPointTemplate(point));
 }
 

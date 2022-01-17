@@ -29,8 +29,10 @@ const getDateDifference = (dueFrom, dueTo) => {
   const minutes = Math.floor(((diff - days) * 24 - hours) * 60);
 
   const daysText = days ? `${days}D` : '';
-  const minutesText = minutes ? `${minutes}M` : '';
-  return `${daysText} ${hours}H ${minutesText}`;
+  const hoursText = hours || days ? `${hours}H` : '';
+  return `${daysText} ${hoursText} ${minutes}M`;
 };
 
-export { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator, getDateDifference };
+const dateConverter = (date, formate) => dayjs(date).format(formate);
+
+export { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator, getDateDifference, dateConverter };
