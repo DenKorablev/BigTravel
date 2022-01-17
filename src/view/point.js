@@ -1,18 +1,27 @@
-export const createPointTemplate = () => `
+import dayjs from 'dayjs';
+import { getDateDifference } from '../util.js';
+
+export const createPointTemplate = (object) => {
+  const { type, dueFrom, dueTo, destination } = object;
+  const dateFrom = dayjs(dueFrom).format('MMM D');
+  const timeFrom = dayjs(dueFrom).format('hh:mm');
+  const timeTo = dayjs(dueTo).format('hh:mm');
+
+  return `
   <li class="trip-events__item">
     <div class="event">
-      <time class="event__date" datetime="2019-03-18">MAR 18</time>
+      <time class="event__date" datetime="2019-03-18">${dateFrom}</time>
       <div class="event__type">
-        <img class="event__type-icon" width="42" height="42" src="img/icons/flight.png" alt="Event type icon">
+        <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
       </div>
-      <h3 class="event__title">Flight Chamonix</h3>
+      <h3 class="event__title">${destination.name}</h3>
       <div class="event__schedule">
         <p class="event__time">
-          <time class="event__start-time" datetime="2019-03-18T12:25">12:25</time>
+          <time class="event__start-time" datetime="2019-03-18T12:25">${timeFrom}</time>
           &mdash;
-          <time class="event__end-time" datetime="2019-03-18T13:35">13:35</time>
+          <time class="event__end-time" datetime="2019-03-18T13:35">${timeTo}</time>
         </p>
-        <p class="event__duration">01H 10M</p>
+        <p class="event__duration">${getDateDifference(dueFrom, dueTo)}</p>
       </div>
       <p class="event__price">
         &euro;&nbsp;<span class="event__price-value">160</span>
@@ -41,3 +50,5 @@ export const createPointTemplate = () => `
       </button>
     </div>
   </li>`;
+};
+

@@ -6,8 +6,11 @@ import { createTripBordTemplate } from './view/trip-bord.js';
 import { createNewPointTemplate } from './view/new-point.js';
 import { createEditPointTemplate } from './view/edit-point.js';
 import { createPointTemplate } from './view/point.js';
+import { generatePointData } from './mock/data.js';
 
-const COUNT = 3;
+const MOKO_COUNT = 18;
+const pointsData = new Array(MOKO_COUNT).fill().map(generatePointData);
+
 const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
 };
@@ -33,7 +36,7 @@ const tripListElement = tripBordElement.querySelector('.trip-events__list');
 render(tripListElement, createEditPointTemplate());
 render(tripListElement, createNewPointTemplate());
 
-for(let i = 0; i < COUNT; i++) {
-  render(tripListElement, createPointTemplate());
+for(const point of pointsData ) {
+  render(tripListElement, createPointTemplate(point));
 }
 
