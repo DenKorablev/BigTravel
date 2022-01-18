@@ -101,16 +101,16 @@ const DESCRIPTIONS = [
   'In rutrum ac purus sit amet tempus.'
 ];
 
+const getPictures = () => ({
+  src: `http://picsum.photos/248/152?r=${Math.random()}`
+});
+
 const getDestination = () => {
   const description = makeRandomArrayGenerator(DESCRIPTIONS).join(' ');
   return {
     description,
     name: `${getRandomArrayElement(CITES)}`,
-    pictures: [
-      {
-        src: `http://picsum.photos/248/152?r=${getRandomInt(1, 10)}`,
-      }
-    ]
+    pictures: new Array(getRandomInt(0, 5)).fill().map(getPictures)
   };
 };
 
@@ -119,7 +119,7 @@ const getOffersType = (type) => {
   return offerType ? makeRandomArrayGenerator(offerType) : [];
 };
 
-export const generatePointData = () => {
+const generatePointData = () => {
   const dueFrom = dayjs().add(getRandomInt(-500, 10000), 'm').toDate();
   const dueTo = dayjs(dueFrom).add(getRandomInt(180, 2880), 'm').toDate();
   const type = getRandomArrayElement(TYPES);
@@ -135,3 +135,4 @@ export const generatePointData = () => {
   };
 };
 
+export { generatePointData };
