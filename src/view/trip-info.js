@@ -1,4 +1,5 @@
 import { dateConverter } from '../util.js';
+import { DATE_FORMAT } from '../const.js';
 
 const getTravelRoute = (points) => {
   const cityList = new Set(points.map(({destination}) => destination.name));
@@ -9,7 +10,7 @@ const getTravelRoute = (points) => {
 const getTravelPeriod = (points) => {
   const start = points.map(({dueFrom}) => dueFrom).sort((a, b) => a.dueFrom - b.dueFrom).shift();
   const end = points.map(({dueTo}) => dueTo).sort((a, b) => a.dueTo - b.dueTo).pop();
-  return `${dateConverter(start, 'MMM D')} &mdash; ${dateConverter(end, 'MMM D')}`;
+  return `${dateConverter(start, DATE_FORMAT.MD)} &mdash; ${dateConverter(end, DATE_FORMAT.MD)}`;
 };
 
 export const createTripInfoTemplate = (points) => `

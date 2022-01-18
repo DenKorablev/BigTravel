@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { TYPES, CITES } from '../const.js';
+import { TYPES, CITES, DATE_FORMAT } from '../const.js';
 import { getRandomArrayElement, dateConverter, getRandomInt } from '../util.js';
 
 const createTypesContainer = (selectedtype) => `
@@ -94,10 +94,10 @@ export const createEditPointTemplate = (pointData = {}) => {
 
           <div class="event__field-group  event__field-group--time">
             <label class="visually-hidden" for="event-start-time-1">From</label>
-            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${dateConverter(dueFrom, 'DD/MM/YY hh:mm')}">
+            <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${dateConverter(dueFrom, DATE_FORMAT.DMY_HM)}">
             &mdash;
             <label class="visually-hidden" for="event-end-time-1">To</label>
-            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${dateConverter(dueTo, 'DD/MM/YY hh:mm')}">
+            <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${dateConverter(dueTo, DATE_FORMAT.DMY_HM)}">
           </div>
 
           <div class="event__field-group  event__field-group--price">

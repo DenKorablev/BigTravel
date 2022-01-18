@@ -1,4 +1,5 @@
 import { getDateDifference, dateConverter } from '../util.js';
+import { DATE_FORMAT } from '../const.js';
 
 const createOffers = (offers) => offers.length ? offers.map(({name, price}) => `
     <li class="event__offer">
@@ -16,16 +17,16 @@ export const createPointTemplate = (object) => {
   return `
   <li class="trip-events__item">
     <div class="event">
-      <time class="event__date" datetime="${dateConverter(dueFrom, 'YYYY-MM-DDTHH-mm')}">${dateConverter(dueFrom, 'MMM D')}</time>
+      <time class="event__date" datetime="${dateConverter(dueFrom, DATE_FORMAT.ISO)}">${dateConverter(dueFrom, DATE_FORMAT.MD)}</time>
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
       </div>
       <h3 class="event__title">${type} ${destination.name}</h3>
       <div class="event__schedule">
         <p class="event__time">
-          <time class="event__start-time" datetime="${dateConverter(dueFrom, 'YYYY-MM-DDTHH-mm')}">${dateConverter(dueFrom, 'hh:mm')}</time>
+          <time class="event__start-time" datetime="${dateConverter(dueFrom, DATE_FORMAT.ISO)}">${dateConverter(dueFrom, DATE_FORMAT.TIME)}</time>
           &mdash;
-          <time class="event__end-time" datetime="${dateConverter(dueTo, 'YYYY-MM-DDTHH-mm')}">${dateConverter(dueTo, 'hh:mm')}</time>
+          <time class="event__end-time" datetime="${dateConverter(dueTo, DATE_FORMAT.ISO)}">${dateConverter(dueTo, DATE_FORMAT.TIME)}</time>
         </p>
         <p class="event__duration">${getDateDifference(dueFrom, dueTo)}</p>
       </div>
