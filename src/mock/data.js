@@ -4,7 +4,7 @@ import { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator } from '.
 
 const PRICE = {
   MIN: 20,
-  MAX: 2500
+  MAX: 250
 };
 
 const OFFERS = new Map([
@@ -101,11 +101,11 @@ const DESCRIPTIONS = [
   'In rutrum ac purus sit amet tempus.'
 ];
 
-const getDestination = (type) => {
+const getDestination = () => {
   const description = makeRandomArrayGenerator(DESCRIPTIONS).join(' ');
   return {
     description,
-    name: `${type} ${getRandomArrayElement(CITES)}`,
+    name: `${getRandomArrayElement(CITES)}`,
     pictures: [
       {
         src: `http://picsum.photos/248/152?r=${getRandomInt(1, 10)}`,
@@ -122,13 +122,13 @@ const getOffersType = (type) => {
 export const generatePointData = () => {
   const dueFrom = dayjs().add(getRandomInt(-500, 10000), 'm').toDate();
   const dueTo = dayjs(dueFrom).add(getRandomInt(180, 2880), 'm').toDate();
-  const type = TYPES[getRandomInt(0, TYPES.length - 1)];
+  const type = getRandomArrayElement(TYPES);
 
   return {
     price: getRandomInt(PRICE.MIN, PRICE.MAX),
     dueFrom,
     dueTo,
-    destination: getDestination(type),
+    destination: getDestination(),
     isFavorite: Boolean(getRandomInt()),
     offers: getOffersType(type),
     type

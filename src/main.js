@@ -7,8 +7,8 @@ import { createEditPointTemplate } from './view/edit-point.js';
 import { createPointTemplate } from './view/point.js';
 import { generatePointData } from './mock/data.js';
 
-const MOKO_COUNT = 18;
-const pointsData = new Array(MOKO_COUNT).fill().map(generatePointData);
+const MOKO_COUNT = 3;
+const pointsData = new Array(MOKO_COUNT).fill().map(generatePointData).sort((a, b) => a.dueFrom - b.dueFrom);
 
 const render = (container, template, place = 'beforeend') => {
   container.insertAdjacentHTML(place, template);
@@ -29,12 +29,12 @@ const tripMainElement = sitePageBodyElement.querySelector('.trip-main');
 render(tripMainElement, createTripInfoTemplate(), 'afterbegin');
 
 const tripInfoElement = tripMainElement.querySelector('.trip-info');
-render(tripInfoElement, createTripCostTemplate());
+render(tripInfoElement, createTripCostTemplate(pointsData));
 
 const tripListElement = tripBordElement.querySelector('.trip-events__list');
-render(tripListElement, createEditPointTemplate());
+render(tripListElement, createEditPointTemplate(pointsData[0]));
 
-for(const point of pointsData) {
-  render(tripListElement, createPointTemplate(point));
+for(let i = 1; i < pointsData.length; i++) {
+  render(tripListElement, createPointTemplate(pointsData[i]));
 }
 
