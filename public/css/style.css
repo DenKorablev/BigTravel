@@ -664,6 +664,8 @@ main {
     background-image: url("../img/icons/train.png"); }
   .event__type-label--ship::before {
     background-image: url("../img/icons/ship.png"); }
+  .event__type-label--transport::before {
+    background-image: url("../img/icons/transport.png"); }
   .event__type-label--drive::before {
     background-image: url("../img/icons/drive.png"); }
   .event__type-label--flight::before {
