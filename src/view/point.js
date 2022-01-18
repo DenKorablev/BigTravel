@@ -10,7 +10,6 @@ const createOffers = (offers) => offers.length ? offers.map(({name, price}) => `
 
 const favoriteClassName = (isFavorite) =>  isFavorite ? 'event__favorite-btn--active' : '';
 
-
 export const createPointTemplate = (object) => {
   const { type, price, dueFrom, dueTo, destination, offers, isFavorite } = object;
 

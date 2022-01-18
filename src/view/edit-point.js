@@ -74,7 +74,6 @@ export const createEditPointTemplate = (pointData = {}) => {
       pictures: ''
     },
     offers = [],
-    isFavorite = false
   } = pointData;
 
   return `

@@ -8,7 +8,7 @@ import { createPointTemplate } from './view/point.js';
 import { generatePointData } from './mock/data.js';
 import { generateFilter } from './mock/filters.js';
 
-const MOKO_COUNT = 3;
+const MOKO_COUNT = 15;
 const pointsData = new Array(MOKO_COUNT).fill().map(generatePointData).sort((a, b) => a.dueFrom - b.dueFrom);
 const filters = generateFilter(pointsData);
 
@@ -28,7 +28,7 @@ const tripBordElement = sitePageBodyElement.querySelector('.trip-events');
 render(tripBordElement, createTripBordTemplate());
 
 const tripMainElement = sitePageBodyElement.querySelector('.trip-main');
-render(tripMainElement, createTripInfoTemplate(), 'afterbegin');
+render(tripMainElement, createTripInfoTemplate(pointsData), 'afterbegin');
 
 const tripInfoElement = tripMainElement.querySelector('.trip-info');
 render(tripInfoElement, createTripCostTemplate(pointsData));

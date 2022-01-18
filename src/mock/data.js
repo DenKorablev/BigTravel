@@ -120,7 +120,7 @@ const getOffersType = (type) => {
 };
 
 const generatePointData = () => {
-  const dueFrom = dayjs().add(getRandomInt(-500, 10000), 'm').toDate();
+  const dueFrom = dayjs().add(getRandomInt(-2000, 10000), 'm').toDate();
   const dueTo = dayjs(dueFrom).add(getRandomInt(180, 2880), 'm').toDate();
   const type = getRandomArrayElement(TYPES);
 

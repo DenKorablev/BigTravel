@@ -35,4 +35,10 @@ const getDateDifference = (dueFrom, dueTo) => {
 
 const dateConverter = (date, formate) => dayjs(date).format(formate);
 
-export { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator, getDateDifference, dateConverter };
+const isDateExpired = (date) => dayjs().isAfter(date, 'm');
+const isDateInFuture = (date) => dayjs().isBefore(date, 'm');
+const isDateCurrent = (date) => dayjs().isSame(date, 'm');
+
+const isEventContinues = (dateFrom, dateTo) => isDateExpired(dateFrom) && isDateInFuture(dateTo);
+
+export { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator, getDateDifference, dateConverter, isDateExpired, isDateCurrent, isEventContinues, isDateInFuture };
