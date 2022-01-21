@@ -1,6 +1,19 @@
 import dayjs from 'dayjs';
 import { TYPES, CITES, DATE_FORMAT } from '../const.js';
-import { getRandomArrayElement, dateConverter, getRandomInt } from '../util.js';
+import { getRandomArrayElement, dateConverter, getRandomInt, createElement } from '../util.js';
+
+const DEFAULT_PARAMS = {
+  type: getRandomArrayElement(TYPES),
+  price: 0,
+  dueFrom: dayjs(),
+  dueTo: dayjs(),
+  destination: {
+    name: getRandomArrayElement(CITES),
+    description: '',
+    pictures: ''
+  },
+  offers: [],
+};
 
 const createTypesContainer = (selectedtype) => `
     <label class="event__type  event__type-btn" for="event-type-toggle-1">
@@ -62,19 +75,8 @@ const createOffersContainer = (offers) => offers.length ? `
   </section>
 ` : '';
 
-export const createEditPointTemplate = (pointData = {}) => {
-  const {
-    type = getRandomArrayElement(TYPES),
-    price = 0,
-    dueFrom = dayjs(),
-    dueTo = dayjs(),
-    destination = {
-      name: getRandomArrayElement(CITES),
-      description: '',
-      pictures: ''
-    },
-    offers = [],
-  } = pointData;
+const createEditPointTemplate = (pointData) => {
+  const { type, price, dueFrom, dueTo, destination, offers } = pointData;
 
   return `
     <li class="trip-events__item">
@@ -125,3 +127,26 @@ export const createEditPointTemplate = (pointData = {}) => {
       </form>
     </li>`;
 };
+
+export default class EditPoint {
+  constructor(pointData = DEFAULT_PARAMS) {
+    this._pointData = pointData;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createEditPointTemplate(this._pointData);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

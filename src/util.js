@@ -1,5 +1,10 @@
 import dayjs from 'dayjs';
 
+const RenderPosition = {
+  AFTERBEGIN: 'afterbegin',
+  BEFOREEND: 'beforeend',
+};
+
 const getRandomInt = (min = 0, max = 1) => {
   if (max < min) {
     [min, max] = [max, min];
@@ -41,4 +46,38 @@ const isDateCurrent = (date) => dayjs().isSame(date, 'm');
 
 const isEventContinues = (dateFrom, dateTo) => isDateExpired(dateFrom) && isDateInFuture(dateTo);
 
-export { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator, getDateDifference, dateConverter, isDateExpired, isDateCurrent, isEventContinues, isDateInFuture };
+
+const render = (container, element, place = RenderPosition.BEFOREEND) => {
+  switch (place) {
+    case RenderPosition.AFTERBEGIN:
+      container.prepend(element);
+      break;
+    case RenderPosition.BEFOREEND:
+      container.append(element);
+      break;
+  }
+};
+
+const createElement = (template) => {
+  const newElement = document.createElement('div');
+  newElement.innerHTML = template;
+  return newElement.firstElementChild;
+};
+
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export {
+  getRandomInt,
+  getRandomArrayElement,
+  makeRandomArrayGenerator,
+  getDateDifference,
+  dateConverter,
+  isDateExpired,
+  isDateCurrent,
+  isEventContinues,
+  isDateInFuture,
+  RenderPosition,
+  render,
+  createElement,
+  isEscEvent
+};

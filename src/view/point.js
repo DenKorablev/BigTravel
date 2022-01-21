@@ -1,4 +1,4 @@
-import { getDateDifference, dateConverter } from '../util.js';
+import { getDateDifference, dateConverter, createElement } from '../util.js';
 import { DATE_FORMAT } from '../const.js';
 
 const createOffers = (offers) => offers.length ? offers.map(({name, price}) => `
@@ -11,7 +11,7 @@ const createOffers = (offers) => offers.length ? offers.map(({name, price}) => `
 
 const favoriteClassName = (isFavorite) =>  isFavorite ? 'event__favorite-btn--active' : '';
 
-export const createPointTemplate = (object) => {
+const createPointTemplate = (object) => {
   const { type, price, dueFrom, dueTo, destination, offers, isFavorite } = object;
 
   return `
@@ -48,3 +48,25 @@ export const createPointTemplate = (object) => {
   </li>`;
 };
 
+export default class Point {
+  constructor(object) {
+    this._object = object;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createPointTemplate(this._object);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
