@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { TYPES, CITES, DATE_FORMAT } from '../const.js';
-import { getRandomArrayElement, dateConverter, getRandomInt, createElement } from '../util.js';
+import { getRandomArrayElement, dateConverter, getRandomInt } from '../util.js';
+import AbstractView from './abstract.js';
 
 const DEFAULT_PARAMS = {
   type: getRandomArrayElement(TYPES),
@@ -128,25 +129,36 @@ const createEditPointTemplate = (pointData) => {
     </li>`;
 };
 
-export default class EditPoint {
+export default class EditPoint extends AbstractView {
   constructor(pointData = DEFAULT_PARAMS) {
+    super();
     this._pointData = pointData;
-    this._element = null;
+
+    this._editClickHandler = this._editClickHandler.bind(this);
+    this._formSubmitHandler = this._formSubmitHandler.bind(this);
   }
 
   getTemplate() {
     return createEditPointTemplate(this._pointData);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _formSubmitHandler(evt) {
+    evt.preventDefault();
+    this._callback.formSubmit();
   }
 
-  removeElement() {
-    this._element = null;
+  _editClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.editClick();
+  }
+
+  setEditClickHandler(callback) {
+    this._callback.editClick = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._editClickHandler);
+  }
+
+  setFormSubmitHandler(callback) {
+    this._callback.formSubmit = callback;
+    this.getElement().querySelector('form').addEventListener('submit', this._formSubmitHandler);
   }
 }

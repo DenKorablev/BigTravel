@@ -1,5 +1,6 @@
-import { getDateDifference, dateConverter, createElement } from '../util.js';
+import { getDateDifference, dateConverter } from '../util.js';
 import { DATE_FORMAT } from '../const.js';
+import AbstractView from './abstract.js';
 
 const createOffers = (offers) => offers.length ? offers.map(({name, price}) => `
     <li class="event__offer">
@@ -48,25 +49,25 @@ const createPointTemplate = (object) => {
   </li>`;
 };
 
-export default class Point {
+export default class Point extends AbstractView {
   constructor(object) {
+    super();
     this._object = object;
-    this._element = null;
+
+    this._clickHandler = this._clickHandler.bind(this);
   }
 
   getTemplate() {
     return createPointTemplate(this._object);
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
+  _clickHandler(evt) {
+    evt.preventDefault();
+    this._callback.editClick();
   }
 
-  removeElement() {
-    this._element = null;
+  setClickHandler(callback) {
+    this._callback.editClick = callback;
+    this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._clickHandler);
   }
 }

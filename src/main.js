@@ -40,19 +40,12 @@ const renderPoints = (list, point) => {
     }
   };
 
-  pointComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
+  pointComponent.setClickHandler(() => {
     replacePointToForm();
     document.addEventListener('keydown', onEscKeydown);
   });
-
-  pointEditComponent.getElement().querySelector('.event__rollup-btn').addEventListener('click', () => {
-    replaceFormToPoint();
-  });
-
-  pointEditComponent.getElement().querySelector('form').addEventListener('submit', (evt) => {
-    evt.preventDefault();
-    replaceFormToPoint();
-  });
+  pointEditComponent.setEditClickHandler(() => replaceFormToPoint());
+  pointEditComponent.setFormSubmitHandler(() => replaceFormToPoint());
 
   render(list, pointComponent.getElement());
 };

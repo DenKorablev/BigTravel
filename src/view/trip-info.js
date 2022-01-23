@@ -1,5 +1,6 @@
-import { dateConverter,createElement } from '../util.js';
+import { dateConverter, } from '../util.js';
 import { DATE_FORMAT } from '../const.js';
+import AbstractView from './abstract.js';
 
 const getTravelRoute = (points) => {
   const cityList = new Set(points.map(({destination}) => destination.name));
@@ -22,25 +23,13 @@ const createTripInfoTemplate = (points) => `
     </div>
   </section>`;
 
-export default class TripInfo {
+export default class TripInfo extends AbstractView {
   constructor(points) {
+    super();
     this._points = points;
-    this._element = null;
   }
 
   getTemplate() {
     return createTripInfoTemplate(this._points);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = createElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
