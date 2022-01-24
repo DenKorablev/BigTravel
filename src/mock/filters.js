@@ -1,4 +1,4 @@
-import { isDateExpired, isDateCurrent, isEventContinues, isDateInFuture } from '../utils/points.js';
+import { isDateExpired, isDateCurrent, isEventContinues, isDateInFuture } from '../utils/date.js';
 
 const pointToFilterMap = {
   everything: (points) => points.length,

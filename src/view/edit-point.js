@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { TYPES, CITES, DATE_FORMAT } from '../const.js';
-import { dateConverter } from '../utils/points.js';
+import { dateConverter } from '../utils/date.js';
 import { getRandomInt, getRandomArrayElement } from '../utils/common.js';
 import AbstractView from './abstract.js';
 
@@ -148,8 +148,7 @@ export default class EditPoint extends AbstractView {
     this._callback.formSubmit();
   }
 
-  _editClickHandler(evt) {
-    evt.preventDefault();
+  _editClickHandler() {
     this._callback.editClick();
   }
 

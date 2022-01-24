@@ -1,4 +1,4 @@
-import { getDateDifference, dateConverter } from '../utils/points.js';
+import { getDateDifference, dateConverter } from '../utils/date.js';
 import { DATE_FORMAT } from '../const.js';
 import AbstractView from './abstract.js';
 
@@ -61,8 +61,7 @@ export default class Point extends AbstractView {
     return createPointTemplate(this._object);
   }
 
-  _clickHandler(evt) {
-    evt.preventDefault();
+  _clickHandler() {
     this._callback.editClick();
   }
 

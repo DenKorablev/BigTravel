@@ -25,23 +25,25 @@ const renderPoints = (list, point) => {
   const pointComponent = new PointView(point);
   const pointEditComponent = new EditPointView(point);
 
-  const replaceFormToPoint = () => replace(pointComponent, pointEditComponent);
-  const replacePointToForm = () => replace(pointEditComponent, pointComponent);
-
   const onEscKeydown = (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       replaceFormToPoint();
-      document.removeEventListener('keydown', onEscKeydown);
     }
   };
 
-  pointComponent.setClickHandler(() => {
-    replacePointToForm();
+  const replaceFormToPoint = () => {
+    replace(pointComponent, pointEditComponent);
+    document.removeEventListener('keydown', onEscKeydown);
+  };
+  const replacePointToForm = () => {
+    replace(pointEditComponent, pointComponent);
     document.addEventListener('keydown', onEscKeydown);
-  });
-  pointEditComponent.setEditClickHandler(() => replaceFormToPoint());
-  pointEditComponent.setFormSubmitHandler(() => replaceFormToPoint());
+  };
+
+  pointComponent.setClickHandler(replacePointToForm);
+  pointEditComponent.setEditClickHandler(replaceFormToPoint);
+  pointEditComponent.setFormSubmitHandler(replaceFormToPoint);
 
   render(list, pointComponent);
 };
