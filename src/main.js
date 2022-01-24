@@ -43,31 +43,31 @@ const renderPoints = (list, point) => {
   pointEditComponent.setEditClickHandler(() => replaceFormToPoint());
   pointEditComponent.setFormSubmitHandler(() => replaceFormToPoint());
 
-  render(list, pointComponent.getElement());
+  render(list, pointComponent);
 };
 
 const renderBord = (points) => {
   const tripBoardList = new PointListView();
   if (points.length === 0) {
-    render(tripBordElement, new NoPointView().getElement());
+    render(tripBordElement, new NoPointView());
   } else {
     const tripBordComponent = new TripSortView();
-    render(tripBordElement, tripBordComponent.getElement());
-    render(tripBordElement, tripBoardList.getElement());
+    render(tripBordElement, tripBordComponent);
+    render(tripBordElement, tripBoardList);
 
     const tripMainElement = sitePageBodyElement.querySelector('.trip-main');
-    render(tripMainElement, new TripInfoView(points).getElement(), RenderPosition.AFTERBEGIN);
+    render(tripMainElement, new TripInfoView(points), RenderPosition.AFTERBEGIN);
 
     const tripInfoElement = tripMainElement.querySelector('.trip-info');
-    render(tripInfoElement, new TripCostView(points).getElement());
+    render(tripInfoElement, new TripCostView(points));
 
     for(let i = 0; i < points.length; i++) {
-      renderPoints(tripBoardList.getElement(), points[i]);
+      renderPoints(tripBoardList, points[i]);
     }
   }
 };
 
-render(mainMenuElement, new MenuView().getElement());
-render(tripFiltersElement, new FilterView(filters).getElement());
+render(mainMenuElement, new MenuView());
+render(tripFiltersElement, new FilterView(filters));
 renderBord(pointsData);
 
