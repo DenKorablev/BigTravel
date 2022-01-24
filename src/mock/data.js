@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { TYPES, CITES } from '../const.js';
-import { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator } from '../util.js';
+import { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator } from '../utils/common.js';
 
 const PRICE = {
   MIN: 20,

@@ -9,7 +9,8 @@ import PointListView from './view/point-list.js';
 import NoPointView from './view/no-point.js';
 import { generatePointData } from './mock/data.js';
 import { generateFilter } from './mock/filters.js';
-import { render, RenderPosition, isEscEvent } from './util.js';
+import { isEscEvent } from './utils/common.js';
+import { render, replace, RenderPosition } from './utils/render.js';
 
 const MOKO_COUNT = 15;
 const pointsData = new Array(MOKO_COUNT).fill().map(generatePointData).sort((a, b) => a.dueFrom - b.dueFrom);
@@ -24,13 +25,8 @@ const renderPoints = (list, point) => {
   const pointComponent = new PointView(point);
   const pointEditComponent = new EditPointView(point);
 
-  const replaceFormToPoint = () => {
-    list.replaceChild(pointComponent.getElement(), pointEditComponent.getElement());
-  };
-
-  const replacePointToForm = () => {
-    list.replaceChild(pointEditComponent.getElement(), pointComponent.getElement());
-  };
+  const replaceFormToPoint = () => replace(pointComponent, pointEditComponent);
+  const replacePointToForm = () => replace(pointEditComponent, pointComponent);
 
   const onEscKeydown = (evt) => {
     if (isEscEvent(evt)) {

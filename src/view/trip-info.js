@@ -1,4 +1,4 @@
-import { dateConverter, } from '../util.js';
+import { dateConverter, } from '../utils/points.js';
 import { DATE_FORMAT } from '../const.js';
 import AbstractView from './abstract.js';
 

@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { TYPES, CITES, DATE_FORMAT } from '../const.js';
-import { getRandomArrayElement, dateConverter, getRandomInt } from '../util.js';
+import { dateConverter } from '../utils/points.js';
+import { getRandomInt, getRandomArrayElement } from '../utils/common.js';
 import AbstractView from './abstract.js';
 
 const DEFAULT_PARAMS = {
