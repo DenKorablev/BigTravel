@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { nanoid } from 'nanoid';
 import { TYPES, CITES } from '../const.js';
 import { getRandomInt, getRandomArrayElement, makeRandomArrayGenerator } from '../utils/common.js';
 
@@ -125,6 +126,7 @@ const generatePointData = () => {
   const type = getRandomArrayElement(TYPES);
 
   return {
+    id: nanoid(),
     price: getRandomInt(PRICE.MIN, PRICE.MAX),
     dueFrom,
     dueTo,
