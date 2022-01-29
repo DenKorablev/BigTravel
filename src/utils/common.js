@@ -23,7 +23,7 @@ const makeRandomArrayGenerator = (array) => {
 
 const isEscEvent = (evt) => evt.key === ('Escape' || 'Esc');
 
-export const updateItem = (items, update) => {
+const updateItem = (items, update) => {
   const index = items.findIndex((item) => item.id === update.id);
 
   if (index === -1) {
@@ -41,5 +41,6 @@ export {
   getRandomInt,
   getRandomArrayElement,
   makeRandomArrayGenerator,
-  isEscEvent
+  isEscEvent,
+  updateItem
 };
