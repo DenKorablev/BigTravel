@@ -11,7 +11,7 @@ const SORT_TYPE = {
   PRICE: 'sort-price',
 };
 
-const TYPES = ['Taxi', 'Bus', 'Train', 'Ship', 'Transport', 'Drive', 'Flight', 'Check-in', 'Sightseeing', 'Restaurant'];
+const TYPES = ['taxi', 'bus', 'train', 'ship', 'transport', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
 
 const CITES = ['Amsterdam', 'Geneva', 'Chamonix', 'Moscow', 'New-York'];
 

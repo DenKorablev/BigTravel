@@ -9,7 +9,7 @@ const PRICE = {
 };
 
 const OFFERS = new Map([
-  ['Taxi', [
+  ['taxi', [
     {
       name: 'Order Uber',
       price: 20
@@ -23,7 +23,7 @@ const OFFERS = new Map([
       price: 10
     },
   ]],
-  ['Bus', [
+  ['bus', [
     {
       name: 'Comfort',
       price: 10
@@ -33,7 +33,7 @@ const OFFERS = new Map([
       price: 20
     }
   ]],
-  ['Train', [
+  ['train', [
     {
       name: 'Metro',
       price: 5
@@ -51,13 +51,13 @@ const OFFERS = new Map([
       price: 20
     }
   ]],
-  ['Ship', [
+  ['ship', [
     {
       name: 'Speedboat',
       price: 33
     }
   ]],
-  ['Transport', [
+  ['transport', [
     {
       name: 'Add Transport',
       price: 15
@@ -67,7 +67,7 @@ const OFFERS = new Map([
       price: 15
     }
   ]],
-  ['Drive', [
+  ['drive', [
     {
       name: 'Car',
       price: 35
@@ -81,7 +81,7 @@ const OFFERS = new Map([
       price: 65
     }
   ]],
-  ['Flight', [
+  ['flight', [
     {
       name: 'Flight',
       price: 55
@@ -137,4 +137,4 @@ const generatePointData = () => {
   };
 };
 
-export { generatePointData };
+export { generatePointData, OFFERS, getDestination };

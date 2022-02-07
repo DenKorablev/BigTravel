@@ -2,7 +2,8 @@ import dayjs from 'dayjs';
 import { TYPES, CITES, DATE_FORMAT } from '../const.js';
 import { dateConverter } from '../utils/date.js';
 import { getRandomInt, getRandomArrayElement } from '../utils/common.js';
-import AbstractView from './abstract.js';
+import SmartView from './smart.js';
+import { OFFERS, getDestination } from '../mock/data.js';
 
 const DEFAULT_PARAMS = {
   type: getRandomArrayElement(TYPES),
@@ -130,26 +131,61 @@ const createEditPointTemplate = (pointData) => {
     </li>`;
 };
 
-export default class EditPoint extends AbstractView {
+export default class EditPoint extends SmartView {
   constructor(pointData = DEFAULT_PARAMS) {
     super();
-    this._pointData = pointData;
+    this._pointData = EditPoint.parsePointToData(pointData);
 
     this._editClickHandler = this._editClickHandler.bind(this);
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
+    this._typeInputHandler = this._typeInputHandler.bind(this);
+    this._destinationInputHandler = this._destinationInputHandler.bind(this);
+
+    this._setInnerHandlers();
   }
 
   getTemplate() {
     return createEditPointTemplate(this._pointData);
   }
 
+  restoreHandlers() {
+    this._setInnerHandlers();
+    this.setEditClickHandler(this._callback.editClick);
+    this.setFormSubmitHandler(this._callback.formSubmit);
+  }
+
   _formSubmitHandler(evt) {
     evt.preventDefault();
-    this._callback.formSubmit(this._pointData);
+    this._callback.formSubmit(EditPoint.parseDataToPoint(this._pointData));
   }
 
   _editClickHandler() {
     this._callback.editClick();
+  }
+
+  _setInnerHandlers() {
+    this.getElement()
+      .querySelector('.event__type-list')
+      .addEventListener('change', this._typeInputHandler);
+    this.getElement()
+      .querySelector('.event__input--destination')
+      .addEventListener('change', this._destinationInputHandler);
+  }
+
+  _typeInputHandler(evt) {
+    evt.preventDefault();
+    const type = evt.target.value;
+    this.updateData({
+      type,
+      offers: OFFERS.get(type) || []
+    });
+  }
+
+  _destinationInputHandler(evt) {
+    evt.preventDefault();
+    this.updateData({
+      destination: getDestination(),
+    });
   }
 
   setEditClickHandler(callback) {
@@ -160,5 +196,22 @@ export default class EditPoint extends AbstractView {
   setFormSubmitHandler(callback) {
     this._callback.formSubmit = callback;
     this.getElement().querySelector('form').addEventListener('submit', this._formSubmitHandler);
+  }
+
+  reset(point) {
+    this.updateData(
+      EditPoint.parsePointToData(point),
+    );
+  }
+
+  static parsePointToData(point) {
+    return Object.assign(
+      {},
+      point,
+    );
+  }
+
+  static parseDataToPoint(data) {
+    return Object.assign({}, data);
   }
 }
