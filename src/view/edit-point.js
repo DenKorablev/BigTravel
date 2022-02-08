@@ -4,6 +4,9 @@ import { dateConverter } from '../utils/date.js';
 import { getRandomInt, getRandomArrayElement } from '../utils/common.js';
 import SmartView from './smart.js';
 import { OFFERS, getDestination } from '../mock/data.js';
+import flatpickr from 'flatpickr';
+
+import '../../node_modules/flatpickr/dist/flatpickr.min.css';
 
 const DEFAULT_PARAMS = {
   type: getRandomArrayElement(TYPES),
@@ -135,13 +138,17 @@ export default class EditPoint extends SmartView {
   constructor(pointData = DEFAULT_PARAMS) {
     super();
     this._pointData = EditPoint.parsePointToData(pointData);
+    this._datepicker = {};
 
     this._editClickHandler = this._editClickHandler.bind(this);
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._typeInputHandler = this._typeInputHandler.bind(this);
     this._destinationInputHandler = this._destinationInputHandler.bind(this);
+    this._dueFromChangeHandler = this._dueFromChangeHandler.bind(this);
+    this._dueToChangeHandler = this._dueToChangeHandler.bind(this);
 
     this._setInnerHandlers();
+    this._setDatepicker();
   }
 
   getTemplate() {
@@ -150,6 +157,7 @@ export default class EditPoint extends SmartView {
 
   restoreHandlers() {
     this._setInnerHandlers();
+    this._setDatepicker();
     this.setEditClickHandler(this._callback.editClick);
     this.setFormSubmitHandler(this._callback.formSubmit);
   }
@@ -172,12 +180,50 @@ export default class EditPoint extends SmartView {
       .addEventListener('change', this._destinationInputHandler);
   }
 
+  _setDatepicker() {
+    if (Object.values(this._datepicker).length) {
+      this._datepicker.startDate.destroy();
+      this._datepicker.endDate.destroy();
+      this._datepicker = {};
+    }
+
+    this._datepicker.startDate = flatpickr(
+      this.getElement().querySelector('#event-start-time-1'),
+      {
+        dateFormat: DATE_FORMAT.FLATPICKER_DATE,
+        defaultDate: this._pointData.dueFrom,
+        onChange: this._dueFromChangeHandler,
+      },
+    );
+
+    this._datepicker.endDate = flatpickr(
+      this.getElement().querySelector('#event-end-time-1'),
+      {
+        dateFormat: DATE_FORMAT.FLATPICKER_DATE,
+        defaultDate: this._pointData.dueTo,
+        onChange: this._dueToChangeHandler,
+      },
+    );
+  }
+
   _typeInputHandler(evt) {
     evt.preventDefault();
     const type = evt.target.value;
     this.updateData({
       type,
       offers: OFFERS.get(type) || []
+    });
+  }
+
+  _dueFromChangeHandler([valueDate]) {
+    this.updateData({
+      dueFrom: valueDate,
+    });
+  }
+
+  _dueToChangeHandler([valueDate]) {
+    this.updateData({
+      dueTo: valueDate,
     });
   }
 

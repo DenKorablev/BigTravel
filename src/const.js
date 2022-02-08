@@ -3,6 +3,7 @@ const DATE_FORMAT = {
   ISO: 'YYYY-MM-DDTHH-mm',
   TIME: 'hh:mm',
   DMY_HM: 'DD/MM/YY hh:mm',
+  FLATPICKER_DATE: 'd/m/y H:i',
 };
 
 const SORT_TYPE = {
