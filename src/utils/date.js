@@ -1,5 +1,7 @@
 import dayjs from 'dayjs';
 
+const compareTwoDate = (dueFrom, dueTo) => dayjs(dueTo).diff(dayjs(dueFrom),'day',true);
+
 const getDateDifference = (dueFrom, dueTo) => {
   const diff = dayjs(dueTo).diff(dayjs(dueFrom),'day',true);
   const days = Math.floor(diff);
@@ -59,6 +61,7 @@ const sortByPrice = (prev, curr) => {
 };
 
 export {
+  compareTwoDate,
   getDateDifference,
   dateConverter,
   isDateExpired,

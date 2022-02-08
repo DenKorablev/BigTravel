@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { TYPES, CITES, DATE_FORMAT } from '../const.js';
-import { dateConverter } from '../utils/date.js';
+import { dateConverter, compareTwoDate } from '../utils/date.js';
 import { getRandomInt, getRandomArrayElement } from '../utils/common.js';
 import SmartView from './smart.js';
 import { OFFERS, getDestination } from '../mock/data.js';
@@ -216,12 +216,20 @@ export default class EditPoint extends SmartView {
   }
 
   _dueFromChangeHandler([valueDate]) {
+    if (compareTwoDate(this._pointData.dueFrom, valueDate) > 0) {
+      this.updateData({ dueFrom: this._pointData.dueTo });
+      return;
+    }
     this.updateData({
       dueFrom: valueDate,
     });
   }
 
   _dueToChangeHandler([valueDate]) {
+    if (compareTwoDate(this._pointData.dueTo, valueDate) < 0) {
+      this.updateData({ dueTo: this._pointData.dueFrom });
+      return;
+    }
     this.updateData({
       dueTo: valueDate,
     });
