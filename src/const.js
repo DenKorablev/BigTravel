@@ -17,9 +17,9 @@ const TYPES = ['taxi', 'bus', 'train', 'ship', 'transport', 'drive', 'flight', '
 const CITES = ['Amsterdam', 'Geneva', 'Chamonix', 'Moscow', 'New-York'];
 
 const UserAction = {
-  UPDATE_TASK: 'UPDATE_TASK',
-  ADD_TASK: 'ADD_TASK',
-  DELETE_TASK: 'DELETE_TASK',
+  UPDATE_POINT: 'UPDATE_POINT',
+  ADD_POINT: 'ADD_POINT',
+  DELETE_POINT: 'DELETE_POINT',
 };
 
 const UpdateType = {
@@ -28,4 +28,10 @@ const UpdateType = {
   MAJOR: 'MAJOR',
 };
 
-export { TYPES, CITES, DATE_FORMAT, SORT_TYPE, UserAction, UpdateType };
+const FilterType = {
+  EVERYTHING: 'everything',
+  FUTURE: 'future',
+  PAST: 'past',
+};
+
+export { TYPES, CITES, DATE_FORMAT, SORT_TYPE, UserAction, UpdateType, FilterType };

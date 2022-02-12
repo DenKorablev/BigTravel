@@ -89,7 +89,7 @@ export default class Point {
 
   _handleFavoriteClick() {
     this._changeData(
-      UserAction.UPDATE_TASK,
+      UserAction.UPDATE_POINT,
       UpdateType.MINOR,
       Object.assign(
         {},
@@ -111,7 +111,7 @@ export default class Point {
 
   _handleFormSubmit(point) {
     this._changeData(
-      UserAction.UPDATE_TASK,
+      UserAction.UPDATE_POINT,
       UpdateType.MINOR,
       point
     );
