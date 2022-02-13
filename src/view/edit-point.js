@@ -16,7 +16,7 @@ const DEFAULT_PARAMS = {
   destination: {
     name: getRandomArrayElement(CITES),
     description: '',
-    pictures: ''
+    pictures: []
   },
   offers: [],
 };

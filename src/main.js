@@ -34,3 +34,8 @@ const filterPresenter = new FilterPresenter(tripFiltersElement, pointsModel, fil
 
 filterPresenter.init();
 listPresenter.init();
+
+document.querySelector('.trip-main__event-add-btn').addEventListener('click', (evt) => {
+  evt.preventDefault();
+  listPresenter.createTask();
+});
