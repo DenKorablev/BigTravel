@@ -141,6 +141,7 @@ export default class EditPoint extends SmartView {
     this._datepicker = {};
 
     this._editClickHandler = this._editClickHandler.bind(this);
+    this._deleteClicktHandler = this._deleteClicktHandler.bind(this);
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._typeInputHandler = this._typeInputHandler.bind(this);
     this._destinationInputHandler = this._destinationInputHandler.bind(this);
@@ -165,6 +166,11 @@ export default class EditPoint extends SmartView {
   _formSubmitHandler(evt) {
     evt.preventDefault();
     this._callback.formSubmit(EditPoint.parseDataToPoint(this._pointData));
+  }
+
+  _deleteClicktHandler(evt) {
+    evt.preventDefault();
+    this._callback.deleteClick(EditPoint.parseDataToPoint(this._pointData));
   }
 
   _editClickHandler() {
@@ -245,6 +251,11 @@ export default class EditPoint extends SmartView {
   setEditClickHandler(callback) {
     this._callback.editClick = callback;
     this.getElement().querySelector('.event__rollup-btn').addEventListener('click', this._editClickHandler);
+  }
+
+  setDeleteClickHandler(callback) {
+    this._callback.deleteClick = callback;
+    this.getElement().querySelector('.event__reset-btn').addEventListener('click', this._deleteClicktHandler);
   }
 
   setFormSubmitHandler(callback) {
