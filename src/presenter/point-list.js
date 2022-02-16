@@ -57,7 +57,20 @@ export default class PointList {
 
   init() {
     render(this._pointListContainer, this._pointListComponent);
+
+    this._pointsModel.addObserver(this._handleModelEvent);
+    this._filterModel.addObserver(this._handleModelEvent);
+
     this._renderTripBoard();
+  }
+
+  destroy() {
+    this._clearPointList({resetSortType: true});
+
+    remove(this._pointListComponent);
+
+    this._pointsModel.removeObserver(this._handleModelEvent);
+    this._filterModel.removeObserver(this._handleModelEvent);
   }
 
   _handleSortTypeChange(sortType) {

@@ -34,4 +34,9 @@ const FilterType = {
   PAST: 'past',
 };
 
-export { TYPES, CITES, DATE_FORMAT, SORT_TYPE, UserAction, UpdateType, FilterType };
+const MainMenu = {
+  TABLE: 'TABLE',
+  STATS: 'STATS',
+};
+
+export { TYPES, CITES, DATE_FORMAT, SORT_TYPE, UserAction, UpdateType, FilterType, MainMenu };
