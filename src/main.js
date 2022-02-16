@@ -1,10 +1,11 @@
 import MenuView from './view/menu.js';
+import StatisticsView from './view/statistics.js';
 import TripInfoView from './view/trip-info.js';
 import TripCostView from './view/trip-cost.js';
 import PointsModel from './model/points.js';
 import FilterModel from './model/filter.js';
 import { generatePointData } from './mock/data.js';
-import { render, RenderPosition } from './utils/render.js';
+import { remove, render, RenderPosition } from './utils/render.js';
 import PointListPresenter from './presenter/point-list.js';
 import FilterPresenter from './presenter/filter.js';
 import { MainMenu } from './const.js';
@@ -17,6 +18,7 @@ pointsModel.setPoints(pointsData);
 
 const filterModel = new FilterModel();
 const menuComponent = new MenuView();
+let statisticsComponent = null;
 
 const sitePageBodyElement = document.querySelector('.page-body');
 const mainMenuElement = sitePageBodyElement.querySelector('.trip-controls__navigation');
@@ -37,10 +39,15 @@ const filterPresenter = new FilterPresenter(tripFiltersElement, pointsModel, fil
 const handleSiteMenuClick = (menuItem) => {
   switch (menuItem) {
     case MainMenu.TABLE:
+      remove(statisticsComponent);
+      filterPresenter.init();
       listPresenter.init();
       break;
     case MainMenu.STATS:
       listPresenter.destroy();
+      filterPresenter.init(true);
+      statisticsComponent = new StatisticsView(pointsModel.getPoints());
+      render(tripBordElement, statisticsComponent);
       break;
   }
 };
