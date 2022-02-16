@@ -1,26 +1,19 @@
 import AbstractView from './abstract.js';
 import Chart from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { ChartMode, getSortedData, getUniqueTypes } from './../utils/statistics.js';
 
 const BAR_HEIGHT = 55;
 
-export const getUniqueTypes = (points) => {
-  const allTypes = points.map((point) => point.type);
-  const uniqueTypes = Array.from(new Set(allTypes));
-  return uniqueTypes;
-};
-
 const renderMoneyChart = (moneyCtx, points, types) => {
-  const data = {};
-  types.forEach((type) => data[type] = 0);
-  points.forEach((point) => data[point.type] += point.price);
+  const objects = getSortedData(points, types, ChartMode.MONEY);
   return new Chart(moneyCtx, {
     plugins: [ChartDataLabels],
     type: 'horizontalBar',
     data: {
-      labels: types,
+      labels: objects.types,
       datasets: [{
-        data: Object.values(data),
+        data: objects.values,
         backgroundColor: '#ffffff',
         hoverBackgroundColor: '#ffffff',
         anchor: 'start',
@@ -81,14 +74,14 @@ const renderMoneyChart = (moneyCtx, points, types) => {
 };
 
 const renderTransportChart = (transportCtx, points, types) => {
-  console.log(types);
+  const objects = getSortedData(points, types, ChartMode.TYPE);
   return new Chart(transportCtx, {
     plugins: [ChartDataLabels],
     type: 'horizontalBar',
     data: {
-      labels: types,
+      labels: objects.types,
       datasets: [{
-        data: [4, 3, 2, 1, 1, 1],
+        data: objects.values,
         backgroundColor: '#ffffff',
         hoverBackgroundColor: '#ffffff',
         anchor: 'start',
@@ -149,14 +142,14 @@ const renderTransportChart = (transportCtx, points, types) => {
 };
 
 const renderTimeChart = (timeCtx, points, types) => {
-  console.log(types);
+  const objects = getSortedData(points, types, ChartMode.TIME);
   return new Chart(timeCtx, {
     plugins: [ChartDataLabels],
     type: 'horizontalBar',
     data: {
-      labels: types,
+      labels: objects.types,
       datasets: [{
-        data: [4, 3, 2, 1, 1, 1],
+        data: objects.values,
         backgroundColor: '#ffffff',
         hoverBackgroundColor: '#ffffff',
         anchor: 'start',
@@ -171,7 +164,7 @@ const renderTimeChart = (timeCtx, points, types) => {
           color: '#000000',
           anchor: 'end',
           align: 'start',
-          formatter: (val) => `${val}x`,
+          formatter: (val) => `${val}`,
         },
       },
       title: {
