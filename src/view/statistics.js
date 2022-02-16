@@ -12,8 +12,8 @@ export const getUniqueTypes = (points) => {
 
 const renderMoneyChart = (moneyCtx, points, types) => {
   const data = {};
-/*   types.forEach((type) => data[type] = 0);
-  points.forEach((point) => data[point.type] += point.price); */
+  types.forEach((type) => data[type] = 0);
+  points.forEach((point) => data[point.type] += point.price);
   return new Chart(moneyCtx, {
     plugins: [ChartDataLabels],
     type: 'horizontalBar',
