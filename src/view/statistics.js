@@ -2,6 +2,7 @@ import AbstractView from './abstract.js';
 import Chart from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { ChartMode, getSortedData, getUniqueTypes } from './../utils/statistics.js';
+import { getHumanizationDate } from './../utils/date.js';
 
 const BAR_HEIGHT = 55;
 
@@ -164,7 +165,7 @@ const renderTimeChart = (timeCtx, points, types) => {
           color: '#000000',
           anchor: 'end',
           align: 'start',
-          formatter: (val) => `${val}`,
+          formatter: (val) => `${getHumanizationDate(val)}`,
         },
       },
       title: {

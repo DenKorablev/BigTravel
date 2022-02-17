@@ -33,7 +33,7 @@ export default class PointList {
     this._newPointPresenter = new NewPointPresenter(this._pointListComponent, this._handleViewAction);
   }
 
-  createTask() {
+  createPoint() {
     this._currentSortType = SORT_TYPE.DAY;
     this._filterModel.setFilter(UpdateType.MAJOR, FilterType.EVERYTHING);
     this._newPointPresenter.init();

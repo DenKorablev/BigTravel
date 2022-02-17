@@ -24,6 +24,7 @@ const sitePageBodyElement = document.querySelector('.page-body');
 const mainMenuElement = sitePageBodyElement.querySelector('.trip-controls__navigation');
 const tripFiltersElement = sitePageBodyElement.querySelector('.trip-controls__filters');
 const tripBordElement = sitePageBodyElement.querySelector('.trip-events');
+const buttonNewEvent = sitePageBodyElement.querySelector('.trip-main__event-add-btn');
 
 render(mainMenuElement, menuComponent);
 
@@ -40,11 +41,13 @@ const handleSiteMenuClick = (menuItem) => {
   switch (menuItem) {
     case MainMenu.TABLE:
       remove(statisticsComponent);
+      buttonNewEvent.removeAttribute('disabled');
       filterPresenter.init();
       listPresenter.init();
       break;
     case MainMenu.STATS:
       listPresenter.destroy();
+      buttonNewEvent.setAttribute('disabled', true);
       filterPresenter.init(true);
       statisticsComponent = new StatisticsView(pointsModel.getPoints());
       render(tripBordElement, statisticsComponent);
@@ -57,7 +60,7 @@ menuComponent.setMenuClickHandler(handleSiteMenuClick);
 filterPresenter.init();
 listPresenter.init();
 
-document.querySelector('.trip-main__event-add-btn').addEventListener('click', (evt) => {
+buttonNewEvent.addEventListener('click', (evt) => {
   evt.preventDefault();
-  listPresenter.createTask();
+  listPresenter.createPoint();
 });

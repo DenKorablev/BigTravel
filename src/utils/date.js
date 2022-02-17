@@ -2,15 +2,20 @@ import dayjs from 'dayjs';
 
 const compareTwoDate = (dueFrom, dueTo) => dayjs(dueTo).diff(dayjs(dueFrom),'day',true);
 
-const getDateDifference = (dueFrom, dueTo) => {
-  const diff = dayjs(dueTo).diff(dayjs(dueFrom),'day',true);
-  const days = Math.floor(diff);
-  const hours = Math.floor((diff - days) * 24);
-  const minutes = Math.floor(((diff - days) * 24 - hours) * 60);
+
+const getHumanizationDate = (duration) => {
+  const days = Math.floor(duration);
+  const hours = Math.floor((duration - days) * 24);
+  const minutes = Math.floor(((duration - days) * 24 - hours) * 60);
 
   const daysText = days ? `${days}D` : '';
   const hoursText = hours || days ? `${hours}H` : '';
   return `${daysText} ${hoursText} ${minutes}M`;
+};
+
+const getDateDifference = (dueFrom, dueTo) => {
+  const diff = dayjs(dueTo).diff(dayjs(dueFrom),'day',true);
+  return getHumanizationDate(diff);
 };
 
 const dateConverter = (date, formate) => dayjs(date).format(formate);
@@ -63,6 +68,7 @@ const sortByPrice = (prev, curr) => {
 export {
   compareTwoDate,
   getDateDifference,
+  getHumanizationDate,
   dateConverter,
   isDateExpired,
   isDateCurrent,

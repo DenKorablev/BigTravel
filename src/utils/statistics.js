@@ -38,7 +38,7 @@ export const getSortedData = (points, types, chartMode) => {
   }
   let sortedData = Object.entries(data).slice().sort((a, b) => b[1] - a[1]);
   sortedData = sortedData.reduce((result, [type, value]) => {
-    result.types.push(type);
+    result.types.push(type.toUpperCase());
     result.values.push(value);
     return result;
   }, { types: [], values: [] });
