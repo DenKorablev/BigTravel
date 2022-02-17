@@ -34,7 +34,7 @@ export default class Point {
     const prevEditPointComponent = this._pointEditComponent;
 
     this._pointComponent = new PointView(point);
-    this._pointEditComponent = new EditPointView(point);
+    this._pointEditComponent = new EditPointView(point, {pointEditMode: true});
 
     this._pointComponent.setFavoriteClickHandler(this._handleFavoriteClick);
     this._pointComponent.setClickHandler(this._handleClick);

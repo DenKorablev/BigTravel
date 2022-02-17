@@ -81,7 +81,7 @@ const createOffersContainer = (offers) => offers.length ? `
   </section>
 ` : '';
 
-const createEditPointTemplate = (pointData) => {
+const createEditPointTemplate = (pointData, pointEditMode) => {
   const { type, price, dueFrom, dueTo, destination, offers } = pointData;
 
   return `
@@ -117,10 +117,10 @@ const createEditPointTemplate = (pointData) => {
           </div>
 
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-          <button class="event__reset-btn" type="reset">Delete</button>
-          <button class="event__rollup-btn" type="button">
-            <span class="visually-hidden">Open event</span>
-          </button>
+          <button class="event__reset-btn" type="reset">${pointEditMode ? 'Delete' : 'Cancel'}</button>
+          ${pointEditMode ? `<button class="event__rollup-btn" type="button">
+          <span class="visually-hidden">Open event</span>
+          </button>` : ''}
         </header>
         <section class="event__details">
           ${createOffersContainer(offers)}
@@ -135,9 +135,10 @@ const createEditPointTemplate = (pointData) => {
 };
 
 export default class EditPoint extends SmartView {
-  constructor(pointData = DEFAULT_PARAMS) {
+  constructor(pointData = DEFAULT_PARAMS, pointEditMode = false) {
     super();
     this._pointData = EditPoint.parsePointToData(pointData);
+    this._pointEditMode = pointEditMode;
     this._datepicker = {};
 
     this._editClickHandler = this._editClickHandler.bind(this);
@@ -153,7 +154,7 @@ export default class EditPoint extends SmartView {
   }
 
   getTemplate() {
-    return createEditPointTemplate(this._pointData);
+    return createEditPointTemplate(this._pointData, this._pointEditMode);
   }
 
   restoreHandlers() {
